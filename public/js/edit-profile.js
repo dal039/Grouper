@@ -7,6 +7,9 @@ function initializePage() {
   });
 
   $.get('/data', addSelectOptions);
+  $("#img-selector").change(function(){
+    readURL(this);
+  });
 }
 
 function addSelectOptions(result) {
@@ -23,4 +26,22 @@ function addSelectOptions(result) {
     if (user.location === loc)
       $('#inputLocation option').last().attr('selected', 'selected');
   }
+  var days = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
+  for (let day of days) {
+    $('#input' + day + 'From').timepicker({ defaultTime : user.availability[day][0] || false });
+    $('#input' + day + 'To').timepicker({ defaultTime : user.availability[day][1] || false });
+  }
 }
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.edit-image').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+

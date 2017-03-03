@@ -23,20 +23,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/index">Grouper <span class="glyphicon glyphicon-home"></span></a>
+          <a class="navbar-brand" href="/instructor-index">Grouper <span class="glyphicon glyphicon-home"></span></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
           	<li><a href="#" id="helpModalLink" data-toggle="modal" data-target="#helpModal">Help</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/my-profile">My Profile</a></li>
-                <li><a href="/my-groups">My Groups</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="/">Sign Out</a></li>
-              </ul>
-            </li>
+            <li><a href="/">Sign Out</a></li>
           </ul>
         </div>
       </div>
@@ -52,11 +44,8 @@
 
           <div class="modal-body">
             <ul>
-            	<li>To get started, add a course using the course password provided by your instructor.</li>
-            	<li> Under <b>My Account</b> in the top right, go to <b>My Profile</b> to fill in your profile.</li> 
-            	<li>To see your peers, click the <u>View course</u> button. You can filter by <i>Name</i>, <i>Year</i>, or <i>Location</i>. Click on a peer who seems like a good fit and is looking for more group member(s).</li>
-            	<li>To form a group with a peer, click the <u>Add to My Group</u> button at the bottom of the profile.  Once you have added this person to your group, you cannot remove this person - you can only leave that group.</li>
-            	<li>Under <b>My Account</b> in the top right, go to <b>My Groups</b> to view your groups. If you choose to <u>Leave Group</u>, you will be removing yourself from that group. </li>
+            	<li>To get started, create a course by inputting the <i>Course Code</i>, <i>Course Title</i>, and <i>Group Size</i>. The <i>Group Size</i> is the number of students you want in each group.</li>
+            	<li>Give the course password to your students to add the course.</li>
             </ul>
           </div>
 
@@ -69,10 +58,9 @@
 
 	<div class="home">
 	    <h1 class="page-header">Hello, {{name}}</h1>
-
-	    <div class="row placeholders">
-	    	<h4 align="center">View an existing course</h4> Pick a course from below to view peers
-	    </div>
+	    <!--<div class="row placeholders">
+	    	<h4 align="center">View an existing course</h4> Viewing a course will take you to student account view.
+	    </div> -->
 
 	    <div class="row placeholders">
 	    	<h3 align="left">Winter 2017</h3>
@@ -102,8 +90,8 @@
 							<a href={{url}}><h3 class="panel-title">{{name}}</h3></a>
 						</div>
 						<div class="panel-body">
-							<p><span class="text-muted">{{title}}</span></p>
-							<a href={{url}} class ="btn btn-primary placeholder" role="button">View course</a><br>
+							<p><span class="text-muted">{{title}}</span><br><b>Course password</b>: {{pw}}</p>
+							<!-- <a href={{url}} class ="btn btn-primary placeholder" role="button">View course</a><br> -->
 							<button type="button" class ="btn btn-default btn-xs" data-toggle="modal" data-target="#{{id}}">Remove course</button>
 						</div>
 					</div>
@@ -112,11 +100,15 @@
 	    </div>
 
 	    <div class="row placeholders">
-	      <h4>Add a course</h4>
-	      <p>Enter your course password provided by your instructor.<p>
-	      <form id="addCourseForm" role="form" method="post" action="/index/add-course">
-	      	<input type="text" placeholder="12345" name="courseId">
-	      	<input type="submit" value="Submit">
+	      <h4>Create a new course</h4>
+	      <form id="createCourseForm" method="post" action="/instructor-index/add-course">
+	      	<label for="inputCourseCode" class="col-sm-2 control-label">Course Code</label>
+	      	<input type="text" placeholder="COGS 199" id="courseCode" class="form-control" required><br>
+	      	<label for="inputCourseName" class="col-sm-2 control-label">Course Title</label>
+	      	<input type="text" placeholder="Special Project" id="courseName" class="form-control" required><br>
+	      	<label for="inputGroupSize" class="col-sm-2 control-label">Group Size</label>
+	      	<input type="text" placeholder="2" id="groupSize" class="form-control" required><br>
+	      	<input type="submit" value="Submit" data-toggle="tooltip" data-placement="right" title="A course password will be generated. Give this code to your students to add the course.">
 	      </form>
 	    </div>
 
@@ -124,13 +116,13 @@
 	    	<h3 align="left">Past courses</h3>
 	    	You have no previous courses on Grouper.
 	    </div>
-	  </div>
+
+	</div>
   </div>
 
-  <script>var help = '{{help}}'</script>
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
-  <script src="/js/index.js"></script>
+  <script src="/js/instructor-index.js"></script>
 
 </body>
 </html>

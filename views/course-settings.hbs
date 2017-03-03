@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>{{title}}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width", inital-scale="1.0">
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">   
+           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/instructor-index">Grouper <span class="glyphicon glyphicon-home"></span></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" id="helpModalLink" data-toggle="modal" data-target="#helpModal">Help</a></li>
+            <li><a href="/">Sign Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="modal fade" id="helpModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+             <h4 class="modal-title">Help Documentation</h4>
+          </div>
+
+          <div class="modal-body">
+            <ul>
+              <li>To get started, create a course by inputting the <i>Course Code</i>, <i>Course Title</i>, and <i>Group Size</i>. The <i>Group Size</i> is the number of students you want in each group.</li>
+              <li>Give the course password to your students to add the course.</li>
+            </ul>
+          </div>
+
+          <div class="modal-footer"> 
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile">
+        <div class="row">
+            <h1 class="page-header">{{name}}</h1>
+            <b>Course title</b>: {{title}}<br>
+            <b>Course password</b>: {{pw}}<br>
+            <b>Group size</b>: {{groupSize}}<br>
+        </div>
+
+    </div>
+  </div>
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

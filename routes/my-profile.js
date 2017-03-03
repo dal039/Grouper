@@ -8,26 +8,14 @@ exports.view = function(req, res) {
     days.push({ day : day, from : user.availability[day][0], to : user.availability[day][1] });
 
   res.render('my-profile', {
-    title : 'My Profile',
+    title : user.name,
     name : user.name,
-    major : user.major,
     avatar : user.avatar,
+    major : user.major,
+    year : user.year,
+    location : user.location,
     days : days,
     bio : user.bio,
-    roles : user.roles
-   });
-};
-
-exports.updateProfile = function(req, res) {
-  var user = data.students[0];
-  if (req.file)
-    user.avatar = req.file.filename;
-  user.major = req.body.major;
-  user.year = req.body.year;
-  user.location = req.body.location;
-  for (let day in user.availability)
-    user.availability[day] = [req.body[day + "From"], req.body[day + "To"]];
-  user.bio = req.body.bio;
-  user.roles = req.body.roles;
-  res.redirect('my-profile');
+    roles : user.roles,
+  });
 };

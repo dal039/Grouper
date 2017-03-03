@@ -27,19 +27,51 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/my-profile">My Profile</a></li>
-            <li><a href="/my-groups">My Groups</a></li>
-            <li><a href="/">Sign Out</a></li>
+            <li><a href="#" id="helpModalLink" data-toggle="modal" data-target="#helpModal">Help</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/my-profile">My Profile</a></li>
+                <li><a href="/my-groups">My Groups</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/">Sign Out</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
 
+    <div class="modal fade" id="helpModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Help Documentation</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <ul>
+              <li>To get started, add a course using the course password provided by your instructor.</li>
+              <li> Under <b>My Account</b> in the top right, go to <b>My Profile</b> to fill in your profile.</li>
+              <li>To see your peers, click the <u>View course</u> button. You can filter by <i>Name</i>, <i>Year</i>, or <i>Location</i>. Click on a peer who seems like a good fit and is looking for more group member(s).</li>
+              <li>To form a group with a peer, click the <u>Add to My Group</u> button at the bottom of the profile.  Once you have added this person to your group, you cannot remove this person - you can only leave that group.</li>
+              <li>Under <b>My Account</b> in the top right, go to <b>My Groups</b> to view your groups. If you choose to <u>Leave Group</u>, you will be removing yourself from that group. </li>
+            </ul>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="course">
       <h1 class="page-header" align="center">{{title}}</h1>
-      <p>Welcome to {{title}}</p>
+      <p>Welcome to {{title}}! You can form groups of {{groupSize}}.</p>
         <select id="year-sel" name="year" class="filter-selectors placeholder">
-          <option value="NULL">Grade</option>
+          <option value="NULL">Year</option>
           <option value="1st">1st</option>
           <option value="2nd">2nd</option>
           <option value="3rd">3rd</option>
@@ -52,28 +84,35 @@
           <option value="Off-campus">Off-campus</option>
         </select>
         <input type="text" class="form-control search-peer" placeholder="Filter by name">
-      <div class="row" id="peer-list">
+      <div id="peer-list">
         {{#each peers}}
         <div class="media placeholder NULL {{year}} {{location}}">
-            <div class="media-left">
-              <a href={{url}}><img class="media-object" src="/images/{{avatar}}" width="120"></a>
-            </div>
-
-            <div class="media-body">
-              <a href={{url}}><h3 class="media-heading">{{name}}</h3></a>
-							<span class="text-muted">Looking for <b>{{groupStatus}}</b> more group member(s)</span><br>
-              
-              <label for="inputMajor" class="control-label">Major:</label> {{major}} <br>
-              <label for="inputYear" class="control-label">Year:</label> {{year}}<br>
-              <label for="inputLocation" class="control-label">Location:</label> {{location}}
-
+          <div class="col-xs-4 col-sm-2 media-left">
+            <img class="media-object img-responsive" src="/images/{{avatar}}">
           </div>
+
+          <div class="media-body">
+						{{#if @root.view_A}}
+            	<a href={{url}}><h3 class="media-heading">{{name}}</h3></a>
+						{{else}}
+							<h3 class="media-heading">{{name}}</h3>
+						{{/if}}
+						<span class="text-muted">Looking for <b>{{groupStatus}}</b> more group member(s)</span><br>
+
+            <label for="inputMajor" class="control-label">Major:</label> {{major}} <br>
+            <label for="inputYear" class="control-label">Year:</label> {{year}} <br>
+            <label for="inputLocation" class="control-label">Location:</label> {{location}} <br>
+
+						{{#unless @root.view_A}}
+							<a href={{url}} class="btn btn-default" >View Profile</a>
+						{{/unless}}
+        	</div>
         </div>
         {{/each}}
       </div>
 
     </div>
-
+    <!-- TODO: right align, add hover back to top thingy -->
     <a href="#" id="backTopBtn" class="btn btn-primary btn-lg" role="button" title="Return back to the top of the page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
   </div>
 

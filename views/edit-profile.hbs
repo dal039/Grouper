@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>{{title}}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width", inital-scale="1.0">
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+  <link href="css/bootstrap-timepicker.min.css" rel="stylesheet"/>
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/index">Grouper <span class="glyphicon glyphicon-home"></span></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" id="helpModalLink" data-toggle="modal" data-target="#helpModal">Help</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li class="active"><a href="/my-profile">My Profile<span class="sr-only">(current)</span></a></li>
+                <li><a href="/my-groups">My Groups</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/">Sign Out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="modal fade" id="helpModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Help Documentation</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <ul>
+              <li>To get started, add a course using the course password provided by your instructor.</li>
+              <li> Under <b>My Account</b> in the top right, go to <b>My Profile</b> to fill in your profile.</li>
+              <li>To see your peers, click the <u>View course</u> button. You can filter by <i>Name</i>, <i>Year</i>, or <i>Location</i>. Click on a peer who seems like a good fit and is looking for more group member(s).</li>
+              <li>To form a group with a peer, click the <u>Add to My Group</u> button at the bottom of the profile.  Once you have added this person to your group, you cannot remove this person - you can only leave that group.</li>
+              <li>Under <b>My Account</b> in the top right, go to <b>My Groups</b> to view your groups. If you choose to <u>Leave Group</u>, you will be removing yourself from that group. </li>
+            </ul>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile">
+      <form id="profileForm" class="form-horizontal" enctype="multipart/form-data" method="POST", action="/my-profile">
+        <div class="row">
+          <div class="col-sm-4 img-upload">
+            <input class="img-responsive edit-image" type="image" src="/images/{{avatar}}">
+            <p class="img-title">Upload Photo</p>
+            <input id="img-selector" name="avatar" type="file" accept="image/*" style="display: none">
+          </div>
+          <div class="col-sm-8">
+            <h1 class="page-header">{{name}}</h1>
+            <div class="form-group">
+              <label for="inputMajor" class="col-sm-2 control-label">Major</label>
+              <div class="col-sm-10">
+                <input id="inputMajor" name="major" class="form-control" type="text" placeholder="Major" value="{{major}}">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputYear" class="col-sm-2 control-label">Year</label>
+              <div class="col-sm-10">
+                <select id="inputYear" name="year" class="form-control"></select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputLocation" class="col-sm-2 control-label">Location</label>
+              <div class="col-sm-10">
+                <select id="inputLocation" name="location" class="form-control"></select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-8 col-sm-6 col-md-4 schedule">
+            <b>Tentative schedule:</b> Input your availability.
+            {{#each days}}
+            <div class="row form-group">
+              <label class="col-sm-12">{{day}}</label>
+              <div class="col-sm-5">
+                <div class="input-group bootstrap-timepicker timepicker">
+                  <input id="input{{day}}From" name="{{day}}From" class="form-control" type="text" value="{{from}}">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                </div>
+              </div>
+              <label class="col-sm-1 control-label" style="text-align: center;">to</label>
+              <div class="col-sm-5">
+                <div class="input-group bootstrap-timepicker timepicker">
+                  <input id="input{{day}}To" name="{{day}}To" class="form-control" type="text" value="{{to}}">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                </div>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-8">
+            <label for="inputBio" class="control-label">Personal Bio</label>
+            <textarea id="inputBio" name="bio" class="form-control" form="profileForm" rows="5" placeholder="Write a little about yourself.">{{bio}}</textarea>
+            <br>
+            <label for="inputRoles" class="control-label">Team Roles</label>
+            <textarea id="inputRoles" name="roles" class="form-control" form="profileForm" rows="5" placeholder="What are you good at?">{{roles}}</textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <input type="submit" class="btn btn-default center-block">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-timepicker.min.js"></script>
+  <script src="/js/edit-profile.js"></script>
+</body>
+</html>

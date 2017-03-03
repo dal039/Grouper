@@ -69,11 +69,48 @@ body {
   margin-bottom: 10px;
 }
 
-.peer .col-times {
+.col-times {
   width:33.33333333%;
   float: left;
   position: relative;
   min-height: 1px;
   padding-right: 15px;
   padding-left: 30px;
+}
+
+.edit-btn {
+  margin-top: 30px;
+}
+
+.edit-image {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.edit-image:hover {
+  opacity: 0.4;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-title {
+  float: left;
+}
+
+.img-title {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.close {
+  float: right;
+}
+
+.schedule {
+  margin-top: 15px;
 }

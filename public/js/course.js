@@ -12,8 +12,21 @@ function updatePeerList(e) {
 
 	var year = $('#year-sel').val(); 
 	var location = $('#location-sel').val();
+	var visibleTracker;
 
-	$('#peer-list >').hide();
+	$('#peer-list > div').each(function() {
+		if ($(this).is(":visible")) {
+			visibleTracker = 1;
+		}
+		else {
+			visibleTracker = 0;
+		}
+	})
+
+	if (visibleTracker) {
+		$('#peer-list >').hide();
+	}
+
 	console.log(year);
 	$('#peer-list .' + year + '.' + location).show();
 	console.log(year);

@@ -27,17 +27,49 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/my-profile">My Profile</a></li>
-            <li><a href="/my-groups">My Groups</a></li>
-            <li><a href="/">Sign Out</a></li>
+            <li><a href="#" id="helpModalLink" data-toggle="modal" data-target="#helpModal">Help</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/my-profile">My Profile</a></li>
+                <li><a href="/my-groups">My Groups</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/">Sign Out</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class="peer">
-      <form id="profileForm" class="form-horizontal">
+    <div class="modal fade" id="helpModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Help Documentation</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
 
+          <div class="modal-body">
+            <ul>
+              <li>To get started, add a course using the course password provided by your instructor.</li>
+              <li> Under <b>My Account</b> in the top right, go to <b>My Profile</b> to fill in your profile.</li> 
+              <li>To see your peers, click the <u>View course</u> button. You can filter by <i>Name</i>, <i>Year</i>, or <i>Location</i>. Click on a peer who seems like a good fit and is looking for more group member(s).</li>
+              <li>To form a group with a peer, click the <u>Add to My Group</u> button at the bottom of the profile.  Once you have added this person to your group, you cannot remove this person - you can only leave that group.</li>
+              <li>Under <b>My Account</b> in the top right, go to <b>My Groups</b> to view your groups. If you choose to <u>Leave Group</u>, you will be removing yourself from that group. </li>
+            </ul>
+          </div>
+
+          <div class="modal-footer"> 
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+		<h1 class="page-header" align="center">{{courseName}}</h1>
+
+    <div class="peer">
       <div class="row">
         <div class="col-sm-4">
           <img src="/images/{{avatar}}" class="img-responsive">
@@ -62,6 +94,7 @@
 
       <div class="row">
         <div class="col-times">
+            <b>Tentative schedule:</b>
             {{#each days}}
             <div class="form-group">
               <label>{{day}}</label> {{from}}
@@ -79,32 +112,51 @@
 							{{roles}}
 						</div>
         </div>
-    </div>
+    	</div>
 
-    <div class="row">
-      <center><a href="{{mailto}}" class="btn btn-default" role="button">Email {{name}}</a>
-	      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="joinGroup()">Join group</button>
-	      <div class="modal fade" id="myModal" role="dialog">
-	        <div class="modal-dialog" role="document">
-	          <div class="modal-content">
-	            <div class="modal-header">
-	              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	            </div>
+			<div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <p><h3 class="panel-title">{{name}}'s Group</h3></p>
+          </div>
+          <div class="panel-body" id="currentGroup">
+						{{#each members}}
+              {{#if name}} 
+						    <p><a href="{{url}}" id="groupMember">{{name}}</a></p>
+              {{else}}
+                <h4>No group members!</h4>
+              {{/if}}
+					  {{/each}}
+          </div>
+        </div>
+      </div>
 
-	            <div class="modal-body">
-	              You've joined <b>{{name}}</b>'s group! Check <i>My Groups</i> to view your groups!
-	            </div>
+    	<div class="row">
+	      <center><a href="{{mailto}}" class="btn btn-default" role="button">Email {{name}}</a>
+		      <span data-toggle="tooltip" data-placement="right" title="Add {{name}} to your group. If {{name}} already has group members, you will be adding them also.">
+            <button type="button" class="btn btn-primary" id="joinGroupBtn" data-toggle="modal" data-target="#joinedGroupModal" onclick="joinGroup()" >Add to My Group</button>
+          </span>
+		      <div class="modal fade" id="joinedGroupModal" role="dialog">
+		        <div class="modal-dialog" role="document">
+		          <div class="modal-content">
+		            <div class="modal-header">
+		              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		            </div>
 
-	            <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-    	</center>
-      <br><a href={{courseUrl}}>Back</a>
-    </div>
-    </form>
-  </div>
+		            <div class="modal-body">
+		              You've joined <i>{{name}}</i>'s group! Check <b>My Groups</b> under My Account to view your groups!
+		            </div>
+
+		            <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+	    	</center>
+	      <br><a href={{courseUrl}}>Back</a>
+	    </div>
+	  </div>
+	</div>
 
 	<script>var courseId = '{{courseId}}', peerId = '{{id}}'</script>
   <script src="/js/jquery-3.1.1.min.js"></script>

@@ -7,6 +7,9 @@ exports.view = function(req, res) {
 
 exports.login = function(req, res) {
   var user = data.students.find(function(s) { return s.email === req.body.email });
+  
+  //TODO: if proftest@ucsd.edu then redirect to /instructor-index
+
   if (user /* && user.password === req.body.password */) {
     if (data.students[0] !== user) {
       data.students.splice(data.students.indexOf(user), 1);
